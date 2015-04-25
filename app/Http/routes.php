@@ -16,3 +16,5 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 
 Route::get('/index', 'MoviesController@search');
+
+Route::get('/result','MoviesController@result');
