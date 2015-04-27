@@ -8,15 +8,15 @@
     <div class="intro-text">
         <div class="span6">
             <div class="intro-lead-in">Welcome To Movie Tonight!</div>
-            <div class="intro-heading">Fill in your preference</div>
+            <div class="intro-heading">Fill in your preferences</div>
             <div id="big-form" class="">
                 <form action="/result" method="get">
                     <fieldset>
                         <div class="form-group">
                             <div class="">
                                 <label class=" control-label">Year </label>
-                                <input name="year1" id="year1" type="text" class="textbox" value="1900" size="4" maxlength="4" style="width:50px;"/><span style="width:9px; padding-top:5px; margin-right:0px;">-</span>
-                                <input name="year2" id="year2" type="text" class="textbox" value="2015" size="4" maxlength="4" style="width:50px;"/>
+                                <input name="year1" id="year1" type="text" class="textbox" value="1900" size="4" maxlength="4" style="width:50px; color:black"/><span style="width:9px; padding-top:5px; margin-right:0px;">-</span>
+                                <input name="year2" id="year2" type="text" class="textbox" value="2015" size="4" maxlength="4" style="width:50px; color:black"/>
                             </div>
                         </div>
 
@@ -27,7 +27,6 @@
                                 <option value="action"  >action movies</option>
                                 <option value="adventure"  >adventure movies</option>
                                 <option value="animation"  >animation movies</option>
-                                <option value="biography"  >biography movies</option>
                                 <option value="comedy"  >comedy movies</option>
                                 <option value="crime"  >crime movies</option>
                                 <option value="documentary"  >documentary movies</option>
@@ -74,7 +73,8 @@
         <div class="clearfix"></div>
     </div>
 @stop
-    {{--<div class="intro-text">--}}
+
+        {{--<div class="intro-text">--}}
 
         {{--<a href="#services" class="page-scroll btn btn-xl">Tell Me More</a>--}}
     {{--</div>--}}

@@ -46,12 +46,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">Movie Tonight</a>
+            <a class="navbar-brand page-scroll" href="/index">Movie Tonight</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#services">Login</a>
+                </li>
 
+            </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -63,14 +71,13 @@
     <div class="container">
         @yield('content')
     </div>
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            @yield('service')
+        </div>
+    </section>
 </header>
-
-<!-- Services Section -->
-<section id="services">
-    <div class="container">
-        @yield('service')
-    </div>
-</section>
 
 </body>
 

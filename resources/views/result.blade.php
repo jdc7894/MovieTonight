@@ -21,8 +21,8 @@
                 </form>
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow=""
-                     aria-valuemin="0" aria-valuemax="100" style="width:{{$rating}}">
-                    {{$rating}} people recommended this movie!
+                     aria-valuemin="0" aria-valuemax="100" style="width:{{$rating * 10 . "%"}}">
+                    TMDb rating: {{$rating}}
                 </div>
             </div>
     </div>

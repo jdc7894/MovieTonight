@@ -29,7 +29,7 @@ class MoviesController extends Controller
 
         $movieData = MovieDB::search($year1,$year2,$genre,$rating,$keyword);
         $url = MovieDB::getUrl()[0];
-        $rating = MovieDB::getRatings()[0] * 10 . "%";
+        $rating = MovieDB::getRatings()[0];
         Session::put('urls', MovieDB::getUrl());
         Session::put('ratings', MovieDB::getRatings());
 
@@ -66,7 +66,7 @@ class MoviesController extends Controller
         Session::put('ratings', $ratings);
 
         $url = $urls[0];
-        $rating = $ratings[0] * 10 . "%";
+        $rating = $ratings[0];
         return view('result',[
             'key' => $url,
             'rating' => $rating
