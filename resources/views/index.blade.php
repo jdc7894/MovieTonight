@@ -1,13 +1,15 @@
 @extends('layout')
 @section('content')
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.3/css/bootstrap-combined.min.css">
-        <link rel="stylesheet"  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <body>
-    <div class="container auth">
-        <div class="span6 pull-right">
-            <div id="big-form" class="well auth-box">
+    <div class="intro-text">
+        <div class="span6">
+            <div class="intro-lead-in">Welcome To Movie Tonight!</div>
+            <div class="intro-heading">Fill in your preference</div>
+            <div id="big-form" class="">
                 <form action="/result" method="get">
                     <fieldset>
                         <div class="form-group">
@@ -32,16 +34,13 @@
                                 <option value="drama"  >drama movies</option>
                                 <option value="family"  >family movies</option>
                                 <option value="fantasy"  >fantasy movies</option>
-                                <option value="film_noir"  >film-noir movies</option>
+                                <option value="foreign"  >film-noir movies</option>
                                 <option value="history"  >history movies</option>
                                 <option value="horror"  >horror movies</option>
                                 <option value="music"  >music movies</option>
-                                <option value="musical"  >musical movies</option>
                                 <option value="mystery"  >mystery movies</option>
                                 <option value="romance"  >romance movies</option>
                                 <option value="sci_fi"  >sci-fi movies</option>
-                                <option value="short"  >short movies</option>
-                                <option value="sport"  >sport movies</option>
                                 <option value="thriller"  >thriller movies</option>
                                 <option value="war"  >war movies</option>
                                 <option value="western"  >western movies</option>
@@ -49,22 +48,17 @@
                         </div>
 
                         <div class="form-group">
-                            <label class=" control-label">IMDb Score </label>
+                            <label class=" control-label">TMDb Score </label>
                             <select name="rating">
-                                <option value="any">Any</option>
-                                <option value="three">Above 3</option>
-                                <option value="four">Above 4</option>
-                                <option value="five">Above 5</option>
-                                <option value="six">Above 6</option>
-                                <option value="seven">Above 7</option>
-                                <option value="eight">Above 8</option>
-                                <option value="nine">Above 9</option>
+                                <option value="0">Any</option>
+                                <option value="3">Above 3</option>
+                                <option value="4">Above 4</option>
+                                <option value="5">Above 5</option>
+                                <option value="6">Above 6</option>
+                                <option value="7">Above 7</option>
+                                <option value="8">Above 8</option>
+                                <option value="9">Above 9</option>
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class=" control-label">Movie Keyword </label>
-                                <input type="text" class="form-group" name="keyword" id="keyword">
                         </div>
 
                         <div class="form-group" align="center">
@@ -80,3 +74,7 @@
         <div class="clearfix"></div>
     </div>
 @stop
+    {{--<div class="intro-text">--}}
+
+        {{--<a href="#services" class="page-scroll btn btn-xl">Tell Me More</a>--}}
+    {{--</div>--}}

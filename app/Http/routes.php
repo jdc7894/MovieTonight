@@ -1,4 +1,6 @@
 <?php
+use App\Services\MovieDB;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +20,11 @@ Route::get('home', 'HomeController@index');
 Route::get('/index', 'MoviesController@search');
 
 Route::get('/result','MoviesController@result');
+
+Route::get('/update', 'MoviesController@update');
+
+Route::get('token', function() {
+    echo csrf_token();
+});
+
+Route::get('search', ['as' => 'search', 'uses' => 'MoviesController@search']);

@@ -2,11 +2,17 @@
 
 use Illuminate\Http\Request;
 use App\Services\MovieDB;
-
-
+use Tmdb\Model\Movie;
+use \Session;
 
 class MoviesController extends Controller
 {
+    public $movie;
+
+    public function __construct()
+    {
+        $this->movie = new MovieDB();
+    }
 
     public function search()
     {
@@ -21,18 +27,49 @@ class MoviesController extends Controller
         $rating = $request->input('rating');
         $keyword = $request->input('keyword');
 
-        $token  = new \Tmdb\ApiToken('0c56401bde4dc0dea76f181c05b2171f');
-        $client = new \Tmdb\Client($token);
-        $response = $client->getDiscoverApi()->discoverMovies([
-            'page' => 1,
-            'language' => 'en',
-            'primary_release_date.gte' => '2010-12-12',
-            'primary_release_date.lte' => '2011-02-12'
+        $movieData = MovieDB::search($year1,$year2,$genre,$rating,$keyword);
+        $url = MovieDB::getUrl()[0];
+        $rating = MovieDB::getRatings()[0] * 10 . "%";
+        Session::put('urls', MovieDB::getUrl());
+        Session::put('ratings', MovieDB::getRatings());
+
+        return view('result',[
+            'movies' => $movieData,
+            'key' => $url,
+            'rating' => $rating
         ]);
-        dd($response);
-//        return view('result',[
-//            'movies' => $movieData
-//        ]);
+
     }
 
+    public function update()
+    {
+        $urls = Session::get('urls');
+        $ratings = Session::get('ratings');
+
+        unset($urls[0]);                            // remove operation
+        $urls = array_values($urls);
+        $temp_url = array_filter($urls);
+
+        unset($ratings[0]);
+        $ratings = array_values($ratings);          // remove operation
+
+        if (empty($temp_url)) {             // list is empty.. show message about end of the list
+            dd("empty shit!");
+        }
+        if (strpos($urls[0],'be/') !== false) {
+            $old_url = $urls[0];
+            $old_url = substr($old_url, strpos($old_url, "be/") + 3);       // old youtube url should be factored
+            $urls[0] = $old_url;
+        }
+
+        Session::put('urls', $urls);
+        Session::put('ratings', $ratings);
+
+        $url = $urls[0];
+        $rating = $ratings[0] * 10 . "%";
+        return view('result',[
+            'key' => $url,
+            'rating' => $rating
+        ]);
+    }
 }

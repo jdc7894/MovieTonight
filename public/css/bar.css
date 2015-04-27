@@ -1,0 +1,29 @@
+.rating-static {
+    width: 100px;
+    height: 16px;
+    display: block;
+    background: url('http://www.itsalif.info/blogfiles/rating/star-rating.png') 0 0 no-repeat;
+}
+
+.rating-100 { background-position: 0 0; }
+.rating-90 { background-position: -10px 0; }
+.rating-80 { background-position: -20px 0; }
+.rating-70 { background-position: -30px 0; }
+.rating-60 { background-position: -40px 0; }
+.rating-50 { background-position: -50px 0; }
+.rating-40 { background-position: -60px 0; }
+.rating-30 { background-position: -70px 0; }
+.rating-20 { background-position: -80px 0; }
+.rating-10 { background-position: -90px 0; }
+.rating-0 { background-position: -100px 0; }
+
+.rating-5  { background-position: -90px -16px; }
+.rating-15 { background-position: -80px -16px; }
+.rating-25 { background-position: -70px -16px; }
+.rating-35 { background-position: -60px -16px; }
+.rating-45 { background-position: -50px -16px; }
+.rating-55 { background-position: -40px -16px; }
+.rating-65 { background-position: -30px -16px; }
+.rating-75 { background-position: -20px -16px; }
+.rating-85 { background-position: -10px -16px; }
+.rating-95 { background-position: 0 -16px; }
