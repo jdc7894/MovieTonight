@@ -105,6 +105,12 @@ class MoviesController extends Controller
             $user->email = Auth::user()->email;
             $user->save();
 
+            $movieStorage = Movie::where('name', '=', $titles[0])->where('visitor_id', '=', Auth::user()->id)->get();
+            if(count($movieStorage) != 0)
+            {
+                echo "<script type='text/javascript'>alert('You already saved this movie to your list');</script>";
+                return redirect('/update');
+            }
             $movie = new Movie();
             $movie->visitor_id = Auth::user()->id;
             $movie->name = $titles[0];
@@ -122,6 +128,7 @@ class MoviesController extends Controller
         foreach ($session->getFlashBag()->get('save-success') as $message) {
             echo "<script type='text/javascript'>alert('$message');</script>";
         }
+
         return redirect('/update');
     }
 
