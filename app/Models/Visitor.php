@@ -8,10 +8,15 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-
+use Validator;
 
 class Visitor extends Model {
-
+    public static function validate($input)
+    {
+        return Validator::make($input, [
+           'name'=> 'required'
+        ]);
+    }
     public function movie()
     {
         return $this->hasMany('App\Models\Movie');

@@ -38,7 +38,7 @@ class MovieDB extends Model                     // class for Movie DB API
         $genre_id = self::getGenreId($genre);
         $token  = new \Tmdb\ApiToken('0c56401bde4dc0dea76f181c05b2171f');       // api key
         $client = new \Tmdb\Client($token);
-
+        
         if($genre_id == 0)      // genre not selected
         {
             $response = $client->getDiscoverApi()->discoverMovies([

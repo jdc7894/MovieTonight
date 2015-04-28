@@ -66,7 +66,8 @@ class MoviesController extends Controller
         $titles = array_values($titles);          // remove operation
 
         if (empty($temp_url)) {             // list is empty.. show message about end of the list
-            dd("empty shit!");
+            echo "<script type='text/javascript'>alert('That was end of my recommendations! Please make new search.');</script>";
+            return redirect('/index');
         }
         if (strpos($urls[0],'be/') !== false) {
             $old_url = $urls[0];
