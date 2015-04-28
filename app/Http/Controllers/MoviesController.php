@@ -18,8 +18,6 @@ class MoviesController extends Controller
 
     public function search()
     {
-//        return \Auth::user();
-
         return view('index');
     }
 
@@ -114,7 +112,8 @@ class MoviesController extends Controller
         }
         else
         {
-            // pop up saying you need to login
+            echo "<script type='text/javascript'>alert('You should log in to save the movies');</script>";
+            return redirect('/auth/login');
         }
 
         $session->getFlashBag()->add('save-success',$titles[0] . ' was successfully saved to your list!');
@@ -134,9 +133,18 @@ class MoviesController extends Controller
             $movies = Movie::where('visitor_id', '=', $id)->get();      // find movies for this user
             //TODO: handle if movies are empty
         }
+
 //        dd($movies);
         return view('/auth/movielist', [
             'movies' => $movies
         ]);
+    }
+
+    /* Delete certain movie from database */
+    public function delete($id)
+    {
+        $movie = Movie::find($id);
+        $movie->delete();
+        return redirect('/movielist');
     }
 }

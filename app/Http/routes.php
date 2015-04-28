@@ -26,7 +26,11 @@ Route::get('/update', 'MoviesController@update');
 
 Route::get('/save', 'MoviesController@save');
 
+Route::get('/delete/{id}', 'MoviesController@delete');
+
 Route::get('/movielist', 'MoviesController@show');
+
+
 
 
 Route::get('token', function() {
