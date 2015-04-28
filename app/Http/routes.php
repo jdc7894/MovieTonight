@@ -1,6 +1,7 @@
 <?php
 use App\Services\MovieDB;
 use Illuminate\Http\Request;
+use App\Models\Recipes;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,7 @@ Route::get('token', function() {
     echo csrf_token();
 });
 
-Route::get('search', ['as' => 'search', 'uses' => 'MoviesController@search']);
+Route::controllers ([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+]);

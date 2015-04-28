@@ -56,7 +56,7 @@
                     <a href="#page-top"></a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#services">Login</a>
+                    <a class="page-scroll" href="/auth/login">Login</a>
                 </li>
 
             </ul>

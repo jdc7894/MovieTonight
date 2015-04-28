@@ -16,6 +16,8 @@ class MoviesController extends Controller
 
     public function search()
     {
+//        return \Auth::user();
+
         return view('index');
     }
 
