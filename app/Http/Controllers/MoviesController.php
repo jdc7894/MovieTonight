@@ -93,8 +93,11 @@ class MoviesController extends Controller
     {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         $session->start();
+        $titles = Session::get('titles');
+        $urls = Session::get('urls');
+        $ratings = Session::get('ratings');
 
-
+        /* Save to the movies database*/
         if (Auth::check())
         {
             $user = new Visitor();
@@ -104,9 +107,9 @@ class MoviesController extends Controller
 
             $movie = new Movie();
             $movie->visitor_id = Auth::user()->id;
-            $movie->name = "what";
-            $movie->key = "kk";
-            $movie->rating = "2";
+            $movie->name = $titles[0];
+            $movie->key = $urls[0];
+            $movie->rating = $ratings[0];
             $movie->save();
         }
         else
@@ -114,7 +117,6 @@ class MoviesController extends Controller
             // pop up saying you need to login
         }
 
-        $titles = Session::get('titles');
         $session->getFlashBag()->add('save-success',$titles[0] . ' was successfully saved to your list!');
         foreach ($session->getFlashBag()->get('save-success') as $message) {
             echo "<script type='text/javascript'>alert('$message');</script>";
@@ -122,8 +124,19 @@ class MoviesController extends Controller
         return redirect('/update');
     }
 
+    /* Get information from database.. */
     public function show()
     {
-        return view('/auth/movielist');
+        /* Find current user id and query the movie database */
+        if (Auth::check())
+        {
+            $id = Auth::user()->id;
+            $movies = Movie::where('visitor_id', '=', $id)->get();      // find movies for this user
+            //TODO: handle if movies are empty
+        }
+//        dd($movies);
+        return view('/auth/movielist', [
+            'movies' => $movies
+        ]);
     }
 }
