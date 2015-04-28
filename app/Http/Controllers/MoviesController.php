@@ -29,21 +29,22 @@ class MoviesController extends Controller
         $year2 = $request->input('year2');
         $genre = $request->input('genre');
         $rating = $request->input('rating');
-        $keyword = $request->input('keyword');
 
-        $movieData = MovieDB::search($year1,$year2,$genre,$rating,$keyword);
+        $movieData = MovieDB::search($year1,$year2,$genre,$rating);
         $url = MovieDB::getUrl()[0];
         $rating = MovieDB::getRatings()[0];
-
-
+        $title = MovieDB::getTitle()[0];
 
         Session::put('urls', MovieDB::getUrl());
         Session::put('ratings', MovieDB::getRatings());
+        Session::put('titles', MovieDB::getTitle());
+
 
         return view('result',[
             'movies' => $movieData,
             'key' => $url,
-            'rating' => $rating
+            'rating' => $rating,
+            'title' => $title
         ]);
 
     }
@@ -52,6 +53,7 @@ class MoviesController extends Controller
     {
         $urls = Session::get('urls');
         $ratings = Session::get('ratings');
+        $titles = Session::get('titles');
 
         unset($urls[0]);                            // remove operation
         $urls = array_values($urls);
@@ -59,6 +61,9 @@ class MoviesController extends Controller
 
         unset($ratings[0]);
         $ratings = array_values($ratings);          // remove operation
+
+        unset($titles[0]);
+        $titles = array_values($titles);          // remove operation
 
         if (empty($temp_url)) {             // list is empty.. show message about end of the list
             dd("empty shit!");
@@ -71,12 +76,16 @@ class MoviesController extends Controller
 
         Session::put('urls', $urls);
         Session::put('ratings', $ratings);
+        Session::put('titles', $titles);
 
         $url = $urls[0];
         $rating = $ratings[0];
+        $title = $titles[0];
+
         return view('result',[
             'key' => $url,
-            'rating' => $rating
+            'rating' => $rating,
+            'title' => $title
         ]);
     }
 
@@ -84,7 +93,6 @@ class MoviesController extends Controller
     {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         $session->start();
-        $session->getFlashBag()->add('save-success','Movie was successfully saved to your list!');
 
         if (Auth::check())
         {
@@ -108,6 +116,8 @@ class MoviesController extends Controller
         /* TODO: replace as function */
         $urls = Session::get('urls');
         $ratings = Session::get('ratings');
+        $titles = Session::get('titles');
+        $session->getFlashBag()->add('save-success',$titles[0] . ' was successfully saved to your list!');
 
         unset($urls[0]);                            // remove operation
         $urls = array_values($urls);
@@ -115,6 +125,9 @@ class MoviesController extends Controller
 
         unset($ratings[0]);
         $ratings = array_values($ratings);          // remove operation
+
+        unset($titles[0]);
+        $titles = array_values($titles);          // remove operation
 
         if (empty($temp_url)) {             // list is empty.. show message about end of the list
             dd("empty shit!");
@@ -127,16 +140,20 @@ class MoviesController extends Controller
 
         Session::put('urls', $urls);
         Session::put('ratings', $ratings);
+        Session::put('titles', $titles);
+
+        $url = $urls[0];
+        $rating = $ratings[0];
+        $title = $titles[0];
 
         foreach ($session->getFlashBag()->get('save-success') as $message) {
             echo "<script type='text/javascript'>alert('$message');</script>";
         }
-            
-        $url = $urls[0];
-        $rating = $ratings[0];
+
         return view('result',[
             'key' => $url,
-            'rating' => $rating
+            'rating' => $rating,
+            'title' => $title
         ]);
     }
 }

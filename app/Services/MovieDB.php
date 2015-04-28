@@ -8,12 +8,14 @@ class MovieDB extends Model                     // class for Movie DB API
     public static $storage;
     public static $url;
     public static $rating;
+    public static $title;
 
     public function __construct()
     {
         self::$storage = array();
         self::$url = array();
         self::$rating = array();
+        self::$title = array();
     }
 
     public static function getUrl()
@@ -26,10 +28,15 @@ class MovieDB extends Model                     // class for Movie DB API
         return self::$rating;
     }
 
-    public static function search($year1,$year2,$genre,$rating,$keyword)
+    public static function getTitle()
+    {
+        return self::$title;
+    }
+
+    public static function search($year1,$year2,$genre,$rating)
     {
         $genre_id = self::getGenreId($genre);
-        $token  = new \Tmdb\ApiToken('0c56401bde4dc0dea76f181c05b2171f');
+        $token  = new \Tmdb\ApiToken('0c56401bde4dc0dea76f181c05b2171f');       // api key
         $client = new \Tmdb\Client($token);
 
         if($genre_id == 0)      // genre not selected
@@ -66,6 +73,7 @@ class MovieDB extends Model                     // class for Movie DB API
             $movie = $repository->load(self::$storage[$i]);
             foreach ($movie->getVideos() as $trailer) {
                 self::$url[] = $trailer->getKey();
+                self::$title[] =$movie->getTitle();
                 break;
             }
         }
