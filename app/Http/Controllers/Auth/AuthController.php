@@ -20,6 +20,7 @@ class AuthController extends Controller {
 
 	use AuthenticatesAndRegistersUsers;
     protected $redirectTo = '/index';
+    protected $redirectAfterLogout = '/index';
 
 	/**
 	 * Create a new authentication controller instance.

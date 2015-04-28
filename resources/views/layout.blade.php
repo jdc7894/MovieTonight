@@ -66,6 +66,12 @@
                     <li>
                         <a class="page-scroll" href="/movielist">{{Auth::user()->name}}'s favorite movies</a>
                     </li>
+                    @if(Auth::user()->email == "dtang@usc.edu")
+                        <li>
+                            <a class="page-scroll" href="/admin">Admin section</a>
+                        </li>
+
+                    @endif
 
                 @endif
             </ul>

@@ -24,7 +24,9 @@
                         </form>
 
                     @endfor
-
+                    @if(count($movies) == 0)
+                            <div class="panel-heading">You don't have any saved movies yet</div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -4,8 +4,10 @@ use Illuminate\Http\Request;
 use App\Services\MovieDB;
 use App\Models\Movie;
 use App\Models\Visitor;
+use App\Models\User;
 use \Auth;
 use \Session;
+use DB;
 
 class MoviesController extends Controller
 {
@@ -134,7 +136,6 @@ class MoviesController extends Controller
             //TODO: handle if movies are empty
         }
 
-//        dd($movies);
         return view('/auth/movielist', [
             'movies' => $movies
         ]);
@@ -146,5 +147,20 @@ class MoviesController extends Controller
         $movie = Movie::find($id);
         $movie->delete();
         return redirect('/movielist');
+    }
+
+    public function delete_user($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/admin');
+    }
+
+    public function admin()
+    {
+        $users = (User::all());
+        return view('/admin', [
+            'users' => $users
+        ]);
     }
 }
