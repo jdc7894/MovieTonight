@@ -26,6 +26,9 @@ Route::get('/update', 'MoviesController@update');
 
 Route::get('/save', 'MoviesController@save');
 
+Route::get('/movielist', 'MoviesController@show');
+
+
 Route::get('token', function() {
     echo csrf_token();
 });

@@ -64,7 +64,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/auth/login">{{Auth::user()->name}}'s favorite movies</a>
+                        <a class="page-scroll" href="/movielist">{{Auth::user()->name}}'s favorite movies</a>
                     </li>
 
                 @endif

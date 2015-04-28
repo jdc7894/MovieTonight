@@ -81,7 +81,6 @@ class MoviesController extends Controller
         $url = $urls[0];
         $rating = $ratings[0];
         $title = $titles[0];
-
         return view('result',[
             'key' => $url,
             'rating' => $rating,
@@ -89,10 +88,12 @@ class MoviesController extends Controller
         ]);
     }
 
+    /* Save movie to the favorite movie list database */
     public function save()
     {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         $session->start();
+
 
         if (Auth::check())
         {
@@ -113,47 +114,16 @@ class MoviesController extends Controller
             // pop up saying you need to login
         }
 
-        /* TODO: replace as function */
-        $urls = Session::get('urls');
-        $ratings = Session::get('ratings');
         $titles = Session::get('titles');
         $session->getFlashBag()->add('save-success',$titles[0] . ' was successfully saved to your list!');
-
-        unset($urls[0]);                            // remove operation
-        $urls = array_values($urls);
-        $temp_url = array_filter($urls);
-
-        unset($ratings[0]);
-        $ratings = array_values($ratings);          // remove operation
-
-        unset($titles[0]);
-        $titles = array_values($titles);          // remove operation
-
-        if (empty($temp_url)) {             // list is empty.. show message about end of the list
-            dd("empty shit!");
-        }
-        if (strpos($urls[0],'be/') !== false) {
-            $old_url = $urls[0];
-            $old_url = substr($old_url, strpos($old_url, "be/") + 3);       // old youtube url should be factored
-            $urls[0] = $old_url;
-        }
-
-        Session::put('urls', $urls);
-        Session::put('ratings', $ratings);
-        Session::put('titles', $titles);
-
-        $url = $urls[0];
-        $rating = $ratings[0];
-        $title = $titles[0];
-
         foreach ($session->getFlashBag()->get('save-success') as $message) {
             echo "<script type='text/javascript'>alert('$message');</script>";
         }
+        return redirect('/update');
+    }
 
-        return view('result',[
-            'key' => $url,
-            'rating' => $rating,
-            'title' => $title
-        ]);
+    public function show()
+    {
+        return view('/auth/movielist');
     }
 }
