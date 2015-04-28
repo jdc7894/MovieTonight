@@ -24,6 +24,8 @@ Route::get('/result','MoviesController@result');
 
 Route::get('/update', 'MoviesController@update');
 
+Route::get('/save', 'MoviesController@save');
+
 Route::get('token', function() {
     echo csrf_token();
 });

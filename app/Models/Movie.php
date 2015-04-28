@@ -9,8 +9,10 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-
-
 class Movie extends Model {
 
+    public function visitor()
+    {
+        return $this->belongsTo('App\Models\Visitor', 'visitors', 'id');
+    }
 }

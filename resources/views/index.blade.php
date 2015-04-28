@@ -73,8 +73,3 @@
         <div class="clearfix"></div>
     </div>
 @stop
-
-        {{--<div class="intro-text">--}}
-
-        {{--<a href="#services" class="page-scroll btn btn-xl">Tell Me More</a>--}}
-    {{--</div>--}}

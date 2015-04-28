@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use App\Services\MovieDB;
-use Tmdb\Model\Movie;
+use App\Models\Movie;
+use App\Models\Visitor;
+use \Auth;
 use \Session;
 
 class MoviesController extends Controller
@@ -32,6 +34,9 @@ class MoviesController extends Controller
         $movieData = MovieDB::search($year1,$year2,$genre,$rating,$keyword);
         $url = MovieDB::getUrl()[0];
         $rating = MovieDB::getRatings()[0];
+
+
+
         Session::put('urls', MovieDB::getUrl());
         Session::put('ratings', MovieDB::getRatings());
 
@@ -67,6 +72,66 @@ class MoviesController extends Controller
         Session::put('urls', $urls);
         Session::put('ratings', $ratings);
 
+        $url = $urls[0];
+        $rating = $ratings[0];
+        return view('result',[
+            'key' => $url,
+            'rating' => $rating
+        ]);
+    }
+
+    public function save()
+    {
+        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        $session->start();
+        $session->getFlashBag()->add('save-success','Movie was successfully saved to your list!');
+
+        if (Auth::check())
+        {
+            $user = new Visitor();
+            $user->name = Auth::user()->name;
+            $user->email = Auth::user()->email;
+            $user->save();
+
+            $movie = new Movie();
+            $movie->visitor_id = Auth::user()->id;
+            $movie->name = "what";
+            $movie->key = "kk";
+            $movie->rating = "2";
+            $movie->save();
+        }
+        else
+        {
+            // pop up saying you need to login
+        }
+
+        /* TODO: replace as function */
+        $urls = Session::get('urls');
+        $ratings = Session::get('ratings');
+
+        unset($urls[0]);                            // remove operation
+        $urls = array_values($urls);
+        $temp_url = array_filter($urls);
+
+        unset($ratings[0]);
+        $ratings = array_values($ratings);          // remove operation
+
+        if (empty($temp_url)) {             // list is empty.. show message about end of the list
+            dd("empty shit!");
+        }
+        if (strpos($urls[0],'be/') !== false) {
+            $old_url = $urls[0];
+            $old_url = substr($old_url, strpos($old_url, "be/") + 3);       // old youtube url should be factored
+            $urls[0] = $old_url;
+        }
+
+        Session::put('urls', $urls);
+        Session::put('ratings', $ratings);
+
+        foreach ($session->getFlashBag()->get('save-success') as $message) {
+            echo "<script type='text/javascript'>alert('$message');</script>";
+        }
+            
         $url = $urls[0];
         $rating = $ratings[0];
         return view('result',[

@@ -19,11 +19,21 @@
                     </div>
                     </fieldset>
                 </form>
+
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow=""
                      aria-valuemin="0" aria-valuemax="100" style="width:{{$rating * 10 . "%"}}">
                     TMDb rating: {{$rating}}
                 </div>
             </div>
+            <form action="/save" method="get">
+                <fieldset>
+                    <div class="form-group" align="center">
+                        <div class="">
+                            <button id="singlebutton" name="singlebutton" class="btn btn-primary">Save this as favorite movie!</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
     </div>
 @stop

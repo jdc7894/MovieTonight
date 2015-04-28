@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Visitor extends Model {
 
-    public function movies()
+    public function movie()
     {
         return $this->hasMany('App\Models\Movie');
     }
