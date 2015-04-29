@@ -27,6 +27,6 @@ class MovieTestDB {
         }
 
         $json = $this->client->get('http://tmdb.com?q=' . urlencode($movie_title));
-        return json_decode($json);   
+        return json_decode($json);
     }
 }
