@@ -3,6 +3,7 @@ namespace App\Services;
 use Illuminate\Database\Eloquent\Model;
 use Cache;
 
+
 class MovieDB extends Model                     // class for Movie DB API
 {
     public static $storage;
@@ -35,49 +36,55 @@ class MovieDB extends Model                     // class for Movie DB API
 
     public static function search($year1,$year2,$genre,$rating)
     {
-        $genre_id = self::getGenreId($genre);
-        $token  = new \Tmdb\ApiToken('0c56401bde4dc0dea76f181c05b2171f');       // api key
-        $client = new \Tmdb\Client($token);
-        
-        if($genre_id == 0)      // genre not selected
+        $query = $year1 . $year2 . $genre . $rating;
         {
-            $response = $client->getDiscoverApi()->discoverMovies([
-                'page' => 1,
-                'language' => 'en',
-                'primary_release_date.gte' => $year1 . '-01-01',
-                'primary_release_date.lte' => $year2 . '-01-01',
-                'vote_average.gte' => $rating
-            ]);
-        }
-        else
-        {
-            $response = $client->getDiscoverApi()->discoverMovies([
-                'page' => 1,
-                'language' => 'en',
-                'primary_release_date.gte' => $year1 . '-01-01',
-                'primary_release_date.lte' => $year2 . '-01-01',
-                'with_genres' => $genre_id,
-                'vote_average.gte' => $rating
-            ]);
-        }
+            $genre_id = self::getGenreId($genre);
+            $token  = new \Tmdb\ApiToken('0c56401bde4dc0dea76f181c05b2171f');       // api key
+            $client = new \Tmdb\Client($token);
 
-        for($i = 0; $i <= 19; $i++) // store the movie keys
-        {
-            self::$storage[] = $response["results"][$i]["id"];
-            self::$rating[] =  $response["results"][$i]["vote_average"];
-        }
-
-        $repository  = new \Tmdb\Repository\MovieRepository($client);
-        for($i = 0; $i <= 19; $i++)
-        {
-            $movie = $repository->load(self::$storage[$i]);
-            foreach ($movie->getVideos() as $trailer) {
-                self::$url[] = $trailer->getKey();
-                self::$title[] =$movie->getTitle();
-                break;
+            if($genre_id == 0)      // genre not selected
+            {
+                $response = $client->getDiscoverApi()->discoverMovies([
+                    'page' => 1,
+                    'language' => 'en',
+                    'primary_release_date.gte' => $year1 . '-01-01',
+                    'primary_release_date.lte' => $year2 . '-01-01',
+                    'vote_average.gte' => $rating
+                ]);
             }
+            else
+            {
+                $response = $client->getDiscoverApi()->discoverMovies([
+                    'page' => 1,
+                    'language' => 'en',
+                    'primary_release_date.gte' => $year1 . '-01-01',
+                    'primary_release_date.lte' => $year2 . '-01-01',
+                    'with_genres' => $genre_id,
+                    'vote_average.gte' => $rating
+                ]);
+            }
+
+            for($i = 0; $i <= 19; $i++) // store the movie keys
+            {
+                self::$storage[] = $response["results"][$i]["id"];
+                self::$rating[] =  $response["results"][$i]["vote_average"];
+            }
+
+            $repository  = new \Tmdb\Repository\MovieRepository($client);
+            for($i = 0; $i <= 19; $i++)
+            {
+                $movie = $repository->load(self::$storage[$i]);
+                foreach ($movie->getVideos() as $trailer) {
+                    self::$url[] = $trailer->getKey();
+                    self::$title[] =$movie->getTitle();
+                    break;
+                }
+            }
+
+            Cache::put($query,$response,60);
+            return ($response);
         }
-        return ($response);
+
     }
 
     public static function getGenreId($genre)
