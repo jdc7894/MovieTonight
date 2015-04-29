@@ -8,7 +8,7 @@
     <div class="intro-text">
         <div class="span6">
             <div class="intro-lead-in">Welcome To Movie Tonight!</div>
-            <div class="intro-heading">Fill in your preferences</div>
+            <div class="intro-heading">Fill in your preferences!</div>
             <div id="big-form" class="">
                 <form action="/result" method="get">
                     <fieldset>
