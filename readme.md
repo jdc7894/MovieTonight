@@ -2,14 +2,14 @@ Movie Tonight
 ====
 [![Build Status](https://travis-ci.org/jdc7894/MovieTonight.svg?branch=master)](https://travis-ci.org/jdc7894/MovieTonight)
 
-Heroku url: movie-tonight.herokuapp.com/index
-(Important: Please copy and paste this url exactly to your browser) If you put http:// in front of this url, it will lead to a site that does not work (It seems like a page with earlier commits in my github). I don't know why but it works with the link without http:// in front. Please let me know if you have any ideas why this is hapenning!)
+#Features
+Movie Tonight is a PHP Laravel wep application that gives a movie recommendation based on user's preference. When the user provides some information about what kind of movies they like, it returns a list of youtube movie trailer to the user. If the user likes certain movies, he or she can store them so that they can see what movies they liked.
 
-Demonstration: http://screencast.com/t/bU5Y0Ke3Yj
+#API: 
+To retrive information about movies, [php-tmdb API](https://github.com/php-tmdb/api) was used. 
 
-Note: 
-1. In order to log in as an admin, please use following info
-   email: dtang@usc.edu
-   pw: laravel
-  I know the user name should be 'david' but I just realized it. Sorry! 
-2. MySQL database is stored locally in migration folder. 
+#Screenshot 
+![Alt text](https://cloud.githubusercontent.com/assets/6413620/8099341/75eb6452-0fb0-11e5-88c8-8da952ae0b8e.png)
+
+![Alt text](https://cloud.githubusercontent.com/assets/6413620/8099358/b6973c24-0fb0-11e5-84ce-d84a81f30fd2.png)
+
